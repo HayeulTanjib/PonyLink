@@ -2,12 +2,14 @@ const shortid = require('shortid');
 const Url = require('../models/urlModel');
 const getExpiryDate = require('../utils/expiryDate');
 const { isValidUrl, isValidAlias } = require('../utils/validators');
+const logger = require('../utils/logger');
 
 const handleCreateUrl = async (req, res) => {
   const { url, customAlias } = req.body;
 
   // Validate required fields
   if (!url) {
+     logger.warn('URL is required')
     return res.status(400).json({
       status: 'fail',
       code: 400,
